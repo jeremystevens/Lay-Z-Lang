@@ -1,3 +1,6 @@
-compile output file
+** compile input file. ***
+python compiler.py --filename code.lzy --output output.ll 
+
+** compile output file ** 
 1. llc -filetype=obj output.ll
 2. gcc output.o -o executable
