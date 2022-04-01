@@ -1,0 +1,6 @@
+OUTPUT "What is your name?"
+name = "Name"
+INPUT name
+OUTPUT "Hello " + name + ", nice to meet you!"
+
+
