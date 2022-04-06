@@ -250,7 +250,9 @@ class LZ_Parser:
                       | expression MINUS expression
                       | expression TIMES expression
                       | expression DIVIDE expression
-                      | expression PERCENT expression'''
+                      | expression PERCENT expression
+                      | expression FLOORDIV expression
+                      | expression MOD expression '''
 
         if p[1].dType == None or p[3].dType == None:
             print("Variable is undefined")
@@ -297,7 +299,7 @@ class LZ_Parser:
                       | expression LESS_EQUAL expression
                       | expression GREATER_EQUAL expression
                       | expression EQUALITY expression
-                      | expression NOT_EQUALITY expression'''
+                      | expression NOT_EQUALITY expression '''
 
         if p[1].dType == None or p[3].dType == None:
             print("Variable is undefined")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-AST node class definitions and properties
+AST  definitions and properties
 '''
 
 __author__ = 'Jeremy Stevens'

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 """
-Lexer for the LayZ language.
+Lexer for the Lay-Z Language.
 """
 
 __author__ = 'Jeremy Stevens'
-__version__ = '0.1'
+__version__ = '0.1'  # 0.1 initial release
 __email__ = 'jeremiahstevens@gmail.com'
 __status__ = 'Development'
 __copyright__ = "(c) 2022 - Jeremy Stevens"
@@ -23,6 +23,7 @@ class LZ_Lexer(object):
     def token(self):
         self.last_token = self.lexer.token()
         return self.last_token
+
     # for debugging
     def test(self, text):
         self.input(text)
@@ -32,36 +33,47 @@ class LZ_Lexer(object):
                 break
             print(tok)
 
+    # List of token names.   This is always required
     tokens = (
-        'VAR',
-        'INT', 'DOUBLE',
-        'INPUT', 'OUTPUT',
-        'SUBROUTINE', 'ENDSUBROUTINE', 'RETURN',
-        'IF', 'THEN', 'ELSE', 'ENDIF',
-        'WHILE', 'DO', 'ENDWHILE',
-        'FOR', 'TO', 'NEXT',
-        'INT_CONST', 'DOUBLE_CONST', 'STRING_CONST',
-        'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQUALS', 'PERCENT',
-        # operators and delimiters
-        'FLOORDIV', 'MOD','AND','OR', 'NOT',
+        # variables
+        'VAR', 'NUM', 'STR', 'BOOL', 'LIST', 'DICT', 'FUNC',
+
+        # classes and objects
+        'CLASS', 'OBJECT', 'INSTANCE', 'STATIC', 'PRIVATE', 'PUBLIC', 'PROTECTED',
+
+        # operators
+        'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQUALS', 'PERCENT', 'FLOORDIV', 'MOD', 'AND', 'OR', 'NOT',
+        'NOT_EQUALS',
+        'LESS_THAN', 'GREATER_THAN', 'LESS_THAN_EQUAL', 'GREATER_THAN_EQUAL',
+        'NOT_IN', 'IS', 'IS_NOT', 'IN_LIST',
+
+        # delimiters
+        'LPAREN', 'RPAREN', 'LBRACKET', 'RBRACKET', 'LBRACE', 'RBRACE',
+
+        # INPUT & PRINT
+        'INPUT_NUM', 'INPUT_STR', 'INPUT_BOOL', 'INPUT_LIST', 'INPUT_DICT', 'INPUT_FUNC',
+        'INPUT', 'PRINT',
+        'PRINTLN', 'PRINT_LIST',
+        'PRINT_DICT', 'PRINT_FUNC',
+
         # keywords
-        'COMMA', 'NEWLINE',
-        'LPAREN', 'RPAREN',
-        'LBRACKET', 'RBRACKET',
-        'LESS_THAN', 'LESS_EQUAL',
-        'GREATER_THAN', 'GREATER_EQUAL',
-        'EQUALITY', 'NOT_EQUALITY',
-        "PRINT",
-        "ECHO",
+        'IF', 'ELSE', 'ELIF', 'WHILE', 'FOR', 'IN', 'BREAK', 'CONTINUE', 'PASS', 'DEF', 'RETURN', 'IMPORT', 'FROM',
+        'AS', 'TRUE', 'FALSE', 'NONE', 'EXCEPT', 'TRY', 'WITH', 'COMMENT',
+
+        # literals
+        'STRING', 'NUMBER', 'NAME',
+        # end of file
+        'EOF',
     )
     reserved = r''.join(["(?!" + keyword + ")" for keyword in tokens])
+
+    # operators
     t_PLUS = r'\+'
     t_MINUS = r'-'
     t_TIMES = r'\*'
     t_DIVIDE = r'/'
     t_EQUALS = r'='
     t_PERCENT = r'%'
-    # floor divs and mods
     t_FLOORDIV = r'//'
     t_MOD = r'%'
     t_AND = r'&'
@@ -73,32 +85,37 @@ class LZ_Lexer(object):
     t_EQUALITY = r'=='
     t_NOT_EQUALITY = r'<>'
 
+    # functions and classes
+    t_FUNC = r'\$'
+    t_CLASS = r'\@'
+    t_OBJECT = r'\#'
+    t_INSTANCE = r'\$'
+    t_STATIC = r'\@'
+    t_PRIVATE = r'\$'
+    t_PUBLIC = r'\@'
+    t_PROTECTED = r'\#'
+
+    # input and print
+    t_INPUT = 'INPUT'
+    t_PRINT = 'PRINT'
+
+    # delimiters
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
     t_LBRACKET = r'\['
     t_RBRACKET = r'\]'
     t_COMMA = r'\,'
+    t_LBRACE = r'\{'
+    t_RBRACE = r'\}'
 
-    t_SUBROUTINE = r'SUBROUTINE'
-    t_ENDSUBROUTINE = r'ENDSUBROUTINE'
-    t_RETURN = r'RETURN'
-
-    t_INT = 'INT'
-    t_DOUBLE = 'DOUBLE'
-
-    t_INPUT = 'INPUT'
-    t_OUTPUT = 'OUTPUT'
-    t_PRINT = 'PRINT'
-    t_ECHO = 'ECHO'
+    # literals
     t_IF = 'IF'
     t_THEN = 'THEN'
     t_ELSE = 'ELSE'
     t_ENDIF = 'ENDIF'
-
     t_WHILE = 'WHILE'
     t_DO = 'DO'
     t_ENDWHILE = 'ENDWHILE'
-
     t_FOR = 'FOR'
     t_TO = 'TO'
     t_NEXT = 'NEXT'
@@ -109,6 +126,7 @@ class LZ_Lexer(object):
         r'\d+\.\d*'
         t.value = float(t.value)
         return t
+
     def t_INT_CONST(self, t):
         r'\d+'
         t.value = int(t.value)
@@ -124,6 +142,11 @@ class LZ_Lexer(object):
         t.lexer.lineno += t.value.count("\n")
         return t
 
+    # define comment
+    def t_COMMENT(self, t):
+        r'\#.*'
+        pass
+
     def t_error(self, t):
         print(f"Illegal character {t.value[0]!r}")
         t.lexer.skip(1)
@@ -132,7 +155,5 @@ class LZ_Lexer(object):
 if __name__ == "__main__":
     m = LZ_Lexer()
     m.build()
-    m.test("x = 2 + 2")
-    m.test("output \"Hello World\"")
-    m.test("for i = 1 to 10")
-
+    # function test
+    m.test(2 + 2)
