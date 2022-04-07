@@ -24,7 +24,6 @@ class Assignment:
         nodelist = (self.lvalue, self.rvalue)
         return nodelist
 
-
 class BinaryOp:
     __slots__ = ('op', 'left', 'right', 'dType', 'length')
 
@@ -63,7 +62,94 @@ class Constant:
 
     def children(self):
         return None
+# class define function
+class DefineFunction:
+    __slots__ = ('name', 'args', 'body')
 
+    def __init__(self, name, args, body):
+        self.name = name
+        self.args = args
+        self.body = body
+
+    def children(self):
+        nodelist = (self.args, self.body)
+        return nodelist
+
+# class for function calls
+class FunctionCall:
+    __slots__ = ('dType', 'name', 'args', 'length')
+
+    def __init__(self, dType, name, args, length):
+        self.dType = dType
+        self.name = name
+        self.args = args
+        self.length = length
+
+    def children(self):
+        nodelist = (self.args)
+        return nodelist
+
+# class for classes
+class Class:
+    __slots__ = ('name', 'fields', 'methods')
+
+    def __init__(self, name, fields, methods):
+        self.name = name
+        self.fields = fields
+        self.methods = methods
+
+    def children(self):
+        nodelist = (self.fields, self.methods)
+        return nodelist
+
+# class for methods
+class Method:
+    __slots__ = ('name', 'parameters', 'body')
+
+    def __init__(self, name, parameters, body):
+        self.name = name
+        self.parameters = parameters
+        self.body = body
+
+    def children(self):
+        nodelist = (self.parameters, self.body)
+        return nodelist
+
+# clas for parameters
+class Parameter:
+    __slots__ = ('name', 'dType')
+
+    def __init__(self, name, dType):
+        self.name = name
+        self.dType = dType
+
+    def children(self):
+        return None
+
+# class for fields
+class Field:
+    __slots__ = ('name', 'dType')
+
+    def __init__(self, name, dType):
+        self.name = name
+        self.dType = dType
+
+    def children(self):
+        return None
+# class for statements
+class Statement:
+    __slots__ = ('op', 'left', 'right', 'dType', 'length')
+
+    def __init__(self, op, left, right, dType, length):
+        self.op = op
+        self.left = left
+        self.right = right
+        self.dType = dType
+        self.length = length
+
+    def children(self):
+        nodelist = (self.left, self.right)
+        return nodelist
 
 class Variable:
     __slots__ = ('dType', 'name', 'length')
