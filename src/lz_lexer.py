@@ -33,17 +33,65 @@ class LZ_Lexer(object):
             print(tok)
 
     tokens = (
+        # TRUE FALSE
+        'TRUE', 'FALSE',
+        # get error on line number
+        'LINE_NUMBER',
+        # import statements
+        'IMPORT',
+
+        # functions declarations
+        'FUNCTION',
+        # function call
+        'CALL',
+        # function arguments
+        'ARGUMENTS',
+
+        # classes and objects
+        'CLASS',
+        'OBJECT',
+        'EXTENDS',
+        'NEW',
+        'THIS',
+        'SUPER',
+        'INSTANCE',
+        'STATIC',
+        'INHERITANCE',
+        'OVERRIDE',
+        'OVERLOAD',
+        'ABSTRACT',
+        'PRIVATE',
+        'PROTECTED',
+        'PUBLIC',
+
+
+        # variables
         'VAR',
-        'INT', 'DOUBLE',
+        'INT', 'STRING', 'INTEGER', 'DOUBLE', 'BOOLEAN', 'CHAR', 'FLOAT',
+
+        # keyword assertions test
+        'ASSERT','TEST',
+
+        # input and output
         'INPUT', 'OUTPUT',
-        'SUBROUTINE', 'ENDSUBROUTINE', 'RETURN',
+
+        # println
+        'PRINTLN',
+         # variable types
+
+        # flow control
         'IF', 'THEN', 'ELSE', 'ENDIF',
-        'WHILE', 'DO', 'ENDWHILE',
-        'FOR', 'TO', 'NEXT',
+        'WHILE', 'DO','RETURN', 'ENDWHILE',
+        'FOR', 'TO', 'NEXT', 'PASS'
+
+        # constants
+        'NUll',
         'INT_CONST', 'DOUBLE_CONST', 'STRING_CONST',
         'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'EQUALS', 'PERCENT',
+
         # operators and delimiters
         'FLOORDIV', 'MOD','AND','OR', 'NOT',
+
         # keywords
         'COMMA', 'NEWLINE',
         'LPAREN', 'RPAREN',
@@ -55,15 +103,18 @@ class LZ_Lexer(object):
         "ECHO",
     )
     reserved = r''.join(["(?!" + keyword + ")" for keyword in tokens])
+
+    # mathematical operators
     t_PLUS = r'\+'
     t_MINUS = r'-'
     t_TIMES = r'\*'
     t_DIVIDE = r'/'
     t_EQUALS = r'='
     t_PERCENT = r'%'
-    # floor divs and mods
     t_FLOORDIV = r'//'
     t_MOD = r'%'
+
+    # comparison operators
     t_AND = r'&'
     t_OR = r'\|'
     t_LESS_THAN = r'<'
@@ -73,37 +124,83 @@ class LZ_Lexer(object):
     t_EQUALITY = r'=='
     t_NOT_EQUALITY = r'<>'
 
+    # delimiters
     t_LPAREN = r'\('
     t_RPAREN = r'\)'
     t_LBRACKET = r'\['
     t_RBRACKET = r'\]'
     t_COMMA = r'\,'
 
-    t_SUBROUTINE = r'SUBROUTINE'
-    t_ENDSUBROUTINE = r'ENDSUBROUTINE'
+
+    # class and object
+    t_CLASS = r'CLASS'
+    t_OBJECT = r'object'
+    t_NEW = r'new'
+    t_THIS = r'this'
+    t_SUPER = r'super'
+    t_INSTANCE = r'instance'
+    t_STATIC = r'static'
+    t_INHERITANCE = r'inheritance'
+    t_OVERRIDE = r'override'
+    t_OVERLOAD = r'overload'
+    t_ABSTRACT = r'abstract'
+    t_PRIVATE = r'PRIVATE'
+    t_PROTECTED = r'protected'
+    t_PUBLIC = r'public'
+
+    # assert
+    t_ASSERT = r'assert'
+    t_TEST = r'test'
     t_RETURN = r'RETURN'
 
+    # functions
+    t_FUNCTION = r'function'
+    t_CALL = r'call'
+    t_ARGUMENTS = r'arguments'
+
+    # import statements
+    t_IMPORT = r'import'
     t_INT = 'INT'
     t_DOUBLE = 'DOUBLE'
 
+    # variable types
+    t_STRING = 'STRING'
+    t_INTEGER = 'INTEGER'
+    t_BOOLEAN = 'BOOLEAN'
+    t_CHAR = 'CHAR'
+    t_FLOAT = 'FLOAT'
+
+    # input and output
     t_INPUT = 'INPUT'
     t_OUTPUT = 'OUTPUT'
     t_PRINT = 'PRINT'
     t_ECHO = 'ECHO'
+
+    # println
+    t_PRINTLN = 'PRINTLN'
+
+    # flow control
+    t_TRUE = r'TRUE'
+    t_FALSE = r'FALSE'
     t_IF = 'IF'
     t_THEN = 'THEN'
     t_ELSE = 'ELSE'
     t_ENDIF = 'ENDIF'
-
     t_WHILE = 'WHILE'
     t_DO = 'DO'
     t_ENDWHILE = 'ENDWHILE'
-
     t_FOR = 'FOR'
     t_TO = 'TO'
     t_NEXT = 'NEXT'
     t_VAR = reserved + r'[a-zA-Z_][a-zA-Z0-9_]*'
     t_ignore = " \t"
+
+
+    # line number
+    def t_LINE_NUMBER(self, t):
+        r'\d+'
+        t.value = int(t.value)
+        return t
 
     def t_DOUBLE_CONST(self, t):
         r'\d+\.\d*'
@@ -133,6 +230,14 @@ if __name__ == "__main__":
     m = LZ_Lexer()
     m.build()
     m.test("x = 2 + 2")
-    m.test("output \"Hello World\"")
-    m.test("for i = 1 to 10")
+    # println
+    m.test("print(\"hello world\")")
+    # test
+    m.test("assert(x == 2)")
+    # line number
+    m.test("x = 2 + 2")
+    # variabl
+
+
+
 
