@@ -46,7 +46,8 @@ class LZ_Lexer(object):
         'CALL',
         # function arguments
         'ARGUMENTS',
-
+        # SUBROUTINE
+        'SUBROUTINE', 'ENDSUBROUTINE',
         # classes and objects
         'CLASS',
         'OBJECT',
@@ -157,6 +158,8 @@ class LZ_Lexer(object):
     t_FUNCTION = r'function'
     t_CALL = r'call'
     t_ARGUMENTS = r'arguments'
+    t_SUBROUTINE = r'SUBROUTINE'
+    t_ENDSUBROUTINE = r'ENDSUBROUTINE'
 
     # import statements
     t_IMPORT = r'import'

@@ -2,11 +2,42 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
+    ABSTRACT
     AND
+    ARGUMENTS
+    ASSERT
+    BOOLEAN
+    CALL
+    CHAR
+    CLASS
     ECHO
+    EXTENDS
+    FALSE
+    FLOAT
+    FUNCTION
+    IMPORT
+    INHERITANCE
+    INSTANCE
+    INTEGER
+    LINE_NUMBER
+    NEW
     NOT
+    OBJECT
     OR
+    OVERLOAD
+    OVERRIDE
+    PASSNUll
     PRINT
+    PRINTLN
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    STATIC
+    STRING
+    SUPER
+    TEST
+    THIS
+    TRUE
 
 Grammar
 
@@ -78,7 +109,14 @@ Rule 64    expression -> VAR
 
 Terminals, with rules where they appear
 
+ABSTRACT             : 
 AND                  : 
+ARGUMENTS            : 
+ASSERT               : 
+BOOLEAN              : 
+CALL                 : 
+CHAR                 : 
+CLASS                : 
 COMMA                : 36 37 38 39
 DIVIDE               : 43
 DO                   : 7
@@ -91,37 +129,61 @@ ENDSUBROUTINE        : 33
 ENDWHILE             : 7
 EQUALITY             : 51
 EQUALS               : 23 24
+EXTENDS              : 
+FALSE                : 
+FLOAT                : 
 FLOORDIV             : 45
 FOR                  : 8
+FUNCTION             : 
 GREATER_EQUAL        : 50
 GREATER_THAN         : 48
 IF                   : 4 5 6
+IMPORT               : 
+INHERITANCE          : 
 INPUT                : 25 26
+INSTANCE             : 
 INT                  : 22 29 31 34 36
+INTEGER              : 
 INT_CONST            : 61
 LBRACKET             : 59
 LESS_EQUAL           : 49
 LESS_THAN            : 47
+LINE_NUMBER          : 
 LPAREN               : 29 30 31 32 54 55 56 57
 MINUS                : 41 53
 MOD                  : 46
+NEW                  : 
 NEWLINE              : 3 4 4 5 5 5 5 6 6 7 7 8 8 33 33
 NEXT                 : 8
 NOT                  : 
 NOT_EQUALITY         : 52
+OBJECT               : 
 OR                   : 
 OUTPUT               : 27
+OVERLOAD             : 
+OVERRIDE             : 
+PASSNUll             : 
 PERCENT              : 44
 PLUS                 : 40
 PRINT                : 
+PRINTLN              : 
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
 RBRACKET             : 59
 RETURN               : 28
 RPAREN               : 29 30 31 32 54 55 56 57
+STATIC               : 
+STRING               : 
 STRING_CONST         : 63
 SUBROUTINE           : 29 30 31 32
+SUPER                : 
+TEST                 : 
 THEN                 : 4 5 6
+THIS                 : 
 TIMES                : 42
 TO                   : 8
+TRUE                 : 
 VAR                  : 8 23 25 29 30 31 32 34 35 36 37 55 56 57 59 64
 WHILE                : 7
 error                : 

@@ -399,7 +399,8 @@ class LZ_Parser:
 
 if __name__ == '__main__':
     m = LZ_Parser()
-
     ast = m.parse("x = 2 + 2")
-
+    # output = ast.evaluate()
+    # print(output)
+    ast = m.parse("x = 2 + 2")
     print(ast)
