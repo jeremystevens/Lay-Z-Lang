@@ -3,12 +3,6 @@ z = 50
 y = x + z
 p = x + y + z
 OUTPUT p
-APPLE = 1
-BANANA = 2
-CANTALOUPE = 3
-OUTPUT CANTALOUPE
-OUTPUT APPLE
-OUTPUT BANANA
 CODE = "The Code Word is: "
 PASSWORD = "Secret"
 OUTPUT CODE + PASSWORD
@@ -19,11 +13,6 @@ OUTPUT g
 g = x + y + z + l + m
 OUTPUT g
 x = (x + y) * z
-OUTPUT x
-x = 10
-y = 20
-z = 30
-
 
 
 
